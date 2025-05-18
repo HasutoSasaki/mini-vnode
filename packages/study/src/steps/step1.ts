@@ -1,6 +1,5 @@
 // ステップ1: 基本的な要素のレンダリング
-import { VNode } from '@complete/core/vnode';
-import { h } from '../core/vnode';
+import { h, type VNode } from '@study/core/vnode';
 import { log } from '../utils/logging';
 
 // DOM操作に関する型定義

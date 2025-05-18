@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ステップ1: 基本的な要素のレンダリング</title>
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+
+<body>
+    <h1>ステップ1: 基本的な要素のレンダリング</h1>
+
+    <div class="demo-section">
+        <h2 class="demo-title">基本デモ: シンプルな要素のレンダリング</h2>
+        <p>
+            このデモでは、仮想DOM（VNode）の基本的な仕組みを示しています。
+            <code>h</code>関数を使って仮想ノードを作成し、それをDOM要素にレンダリングします。
+        </p>
+
+        <h3>レンダリング結果</h3>
+        <div id="app" class="render-result"></div>
+
+        <h3>DOM操作ログ</h3>
+        <div id="debug-log" class="debug-info"></div>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">実装の説明</h2>
+        <p>このステップでは、仮想DOMの最も基本的な機能を実装しています：</p>
+        <ul>
+            <li><strong>要素の作成</strong>: 指定されたタグ名からHTML要素を作成</li>
+            <li><strong>要素の挿入</strong>: 作成した要素を親要素に挿入</li>
+            <li><strong>単純なマウント処理</strong>: VNodeを実際のDOM要素に変換</li>
+        </ul>
+
+        <h3>コードの説明</h3>
+        <pre><code>// 要素の作成
+const createElement = (type: string): HTMLElement => {
+    console.log(`createElement: &lt;${type}&gt;を作成`)
+    return document.createElement(type)
+}
+
+// 要素を親要素に挿入
+const insert = (child: RendererNode, parent: HTMLElement) => {
+    console.log(`insert: &lt;${parent.tagName.toLowerCase()}&gt;に子要素を挿入`)
+    parent.appendChild(child)
+}
+
+// 単純な要素のマウント処理
+const mountElement = (vnode: VNode, container: Container) => {
+    const { type, props, children } = vnode
+
+    // 要素の作成
+    const el = (vnode.el = createElement(type as string))
+
+    // 単純なテキスト子要素の処理 (このステップでは文字列のみサポート)
+    if (typeof children === 'string') {
+        console.log(`mountElement: テキスト "${children}" を設定`)
+        el.textContent = children
+    }
+
+    // DOMに挿入
+    insert(el, container)
+}</code></pre>
+    </div>
+
+    <div class="nav">
+        <span></span>
+        <a href="step2.html">次のステップ: テキストノードの処理 →</a>
+    </div>
+
+    <script type="module" src="step1.ts"></script>
+</body>
+
+</html>
